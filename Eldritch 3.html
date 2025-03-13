@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eldritch Ascension</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        eldritch: {
+                            100: '#b8b8d9',
+                            200: '#9291c4',
+                            300: '#6c6aaf',
+                            400: '#5D5CDE',
+                            500: '#4645b2',
+                            600: '#3b3a94',
+                            700: '#2f2e76',
+                            800: '#232258',
+                            900: '#17163a',
+                            950: '#0b0b1d',
+                        },
+                        void: {
+                            900: '#080810',
+                            950: '#030305',
+                        },
+                        blood: {
+                            500: '#8a0303',
+                        },
+                        toxic: {
+                            500: '#1a4a26',
+                        },
+                        madness: {
+                            100: '#ff9edb',
+                            500: '#cc0a70',
+                            900: '#660538',
+                        }
+                    },
+                    fontFamily: {
+                        lovecraft: ['Playfair Display', 'Georgia', 'serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'pulse-fast': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --eldritch-glow: 0 0 12px rgba(93, 92, 222, 0.7);
+            --void-bg: #030305;
+            --blood-red: #8a0303;
+            --toxic-green: #1a4a26;
+            --madness-purple: #cc0a70;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--void-bg);
+            color: #e2e2e2;
+            transition: background-color 0.5s ease;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%235d5cde' fill-opacity='0.05'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #070707;
+            border-left: 1px solid #232258;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #5D5CDE;
+            border-radius: 0;
+            border: 1px solid #17163a;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6c6aaf;
+        }
+        
+        .eldritch-glow {
+            box-shadow: var(--eldritch-glow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .eldritch-glow::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at bottom right, rgba(93, 92, 222, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse at top left, rgba(93, 92, 222, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .madness-glow {
+            box-shadow: 0 0 12px rgba(204, 10, 112, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .madness-glow::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at bottom right, rgba(204, 10, 112, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse at top left, rgba(204, 10, 112, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .game-window {
+            max-height: calc(100vh - 6rem);
+            overflow-y: auto;
+        }
+        
+        .custom-tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .custom-tooltip .tooltip-text {
+            visibility: hidden;
+            width: 220px;
+            background-color: #0b0b1d;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 8px;
+            position: absolute;
+            z-index: 100;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            border: 1px solid #5D5CDE;
+            box-shadow: 0 0 10px rgba(93, 92, 222, 0.4);
+        }
+        
+        .custom-tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .circle-of-influence {
+            transition: all 0.3s ease;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%235d5cde' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .circle-of-influence:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(93, 92, 222, 0.4);
+        }
+        
+        .minion {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .minion::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(93, 92, 222, 0.1) 0%, transparent 100%);
+            pointer-events: none;
+        }
+        
+        .minion:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(93, 92, 222, 0.6);
+        }
+        
+        .minion.transformed {
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+        }
+        
+        .minion.harvester {
+            border-color: var(--toxic-green) !important;
+        }
+        
+        .minion.collector {
+            border-color: var(--blood-red) !important;
+        }
+        
+        .transform-icon {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+        
+        .transform-icon.harvester {
+            background: var(--toxic-green);
+        }
+        
+        .transform-icon.collector {
+            background: var(--blood-red);
+        }
+
+        .modal {
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(3px);
+        }
+
+        .entity-container {
+            animation: pulsate 6s infinite alternate;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235d5cde' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        @keyframes pulsate {
+            0% {
+                box-shadow: 0 0 5px rgba(93, 92, 222, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(93, 92, 222, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(93, 92, 222, 1);
+            }
+        }
+
+        .madness-container {
+            animation: madnessPulsate 8s infinite alternate;
+        }
+
+        @keyframes madnessPulsate {
+            0% {
+                box-shadow: 0 0 5px rgba(204, 10, 112, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 10px rgba(204, 10, 112, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(204, 10, 112, 0.9);
+            }
+        }
+
+        .text-flicker {
+            animation: textFlicker 4s infinite alternate;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+        }
+
+        @keyframes textFlicker {
+            0%, 100% {
+                text-shadow: 0 0 8px rgba(93, 92, 222, 0.9);
+            }
+            25% {
+                text-shadow: 0 0 1px rgba(93, 92, 222, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 12px rgba(93, 92, 222, 0.7);
+            }
+            75% {
+                text-shadow: 0 0 4px rgba(93, 92, 222, 0.5);
+            }
+        }
+        
+        .madness-text-flicker {
+            animation: madnessTextFlicker 4s infinite alternate;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes madnessTextFlicker {
+            0%, 100% {
+                text-shadow: 0 0 8px rgba(204, 10, 112, 0.9);
+            }
+            25% {
+                text-shadow: 0 0 1px rgba(204, 10, 112, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 12px rgba(204, 10, 112, 0.7);
+            }
+            75% {
+                text-shadow: 0 0 4px rgba(204, 10, 112, 0.5);
+            }
+        }
+        
+        .game-log-filters {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 8px;
+        }
+        
+        .log-filter {
+            background-color: #0b0b1d;
+            color: #9291c4;
+            border: 1px solid #232258;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .log-filter:hover {
+            background-color: #17163a;
+        }
+        
+        .log-filter.active {
+            background-color: #3b3a94;
+            color: white;
+        }
+        
+        .autosave-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(93, 92, 222, 0.2);
+            border: 1px solid rgba(93, 92, 222, 0.5);
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            font-size: 0.8rem;
+        }
+        
+        .autosave-notification.show {
+            opacity: 1;
+        }
+        
+        .familiar-container {
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%235d5cde' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='10' cy='10' r='1'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .madness-upgrade {
+            transition: all 0.3s ease;
+        }
+        
+        .madness-upgrade:hover {
+            transform: scale(1.02);
+        }
+        
+        .madness-locked {
+            position: relative;
+        }
+        
+        .madness-locked::after {
+            content: "LOCKED";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            color: var(--madness-purple);
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px black;
+            letter-spacing: 2px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="dark bg-void-950 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2 font-lovecraft text-eldritch-400 text-flicker">Eldritch Ascension</h1>
+            <p class="text-gray-400 italic">Witness the awakening of cosmic horror</p>
+            
+            <div class="flex justify-center mt-4 space-x-2">
+                <button id="save-btn" class="px-3 py-1 bg-eldritch-800 hover:bg-eldritch-700 text-white rounded-md text-sm transition-colors">Save</button>
+                <button id="export-btn" class="px-3 py-1 bg-eldritch-800 hover:bg-eldritch-700 text-white rounded-md text-sm transition-colors">Export</button>
+                <button id="import-btn" class="px-3 py-1 bg-eldritch-800 hover:bg-eldritch-700 text-white rounded-md text-sm transition-colors">Import</button>
+                <button id="reset-btn" class="px-3 py-1 bg-red-800 hover:bg-red-700 text-white rounded-md text-sm transition-colors">Reset</button>
+            </div>
+
+            <!-- Game Version -->
+            <div class="mt-2 text-xs text-gray-500">v0.2.0</div>
+        </header>
+
+        <!-- Main Game Area -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 game-window">
+            <!-- Left Column: Resources and Entity -->
+            <div class="md:col-span-1">
+                <div class="bg-void-950 rounded-lg p-4 border border-eldritch-800 eldritch-glow mb-6">
+                    <h2 class="text-xl font-semibold mb-3 text-eldritch-300">Resources</h2>
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-300 custom-tooltip">
+                                Eldritch Essence
+                                <span class="tooltip-text" id="ee-tooltip">Primary resource used to summon minions. Current cost: <span id="minion-cost">10</span> EE</span>
+                            </span>
+                            <span id="ee-display" class="text-eldritch-200 font-medium">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-300 custom-tooltip">
+                                Abyssal Shards
+                                <span class="tooltip-text" id="as-tooltip">Used to enhance minions and your entity. Entity enhancement cost: <span id="entity-cost">10</span> AS</span>
+                            </span>
+                            <span id="as-display" class="text-purple-300 font-medium">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-300 custom-tooltip">
+                                Madness Points
+                                <span class="tooltip-text" id="mp-tooltip">Unlocked at Entity level 5. Used to purchase Madness Upgrades.</span>
+                            </span>
+                            <span id="mp-display" class="text-madness-100 font-medium">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-300">EE per second</span>
+                            <span id="ee-per-second" class="text-eldritch-200 font-medium">0.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entity Section -->
+                <div class="bg-void-950 rounded-lg p-4 border border-eldritch-800 eldritch-glow">
+                    <h2 class="text-xl font-semibold mb-3 text-eldritch-300">Your Entity</h2>
+                    <div id="entity-container" class="entity-container bg-black bg-opacity-50 rounded-lg p-4 border border-eldritch-900 mb-4 text-center">
+                        <div id="entity-name" class="text-lg font-medium text-eldritch-400 mb-2">Dormant Entity</div>
+                        <div id="entity-description" class="text-sm text-gray-400 italic mb-3">A small, pulsating mass of otherworldly matter.</div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span>Influence Level:</span>
+                            <span id="entity-influence">1</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>Circles Available:</span>
+                            <span id="entity-circles">3</span>
+                        </div>
+                    </div>
+
+                    <!-- Entity Upgrades -->
+                    <div>
+                        <h3 class="text-lg font-medium mb-2 text-eldritch-300">Entity Enhancements</h3>
+                        <button id="enhance-entity-btn" class="w-full py-2 px-4 bg-eldritch-800 hover:bg-eldritch-700 rounded-md text-white text-sm transition-colors mb-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                            Enhance Influence (10 AS)
+                        </button>
+                        <div class="text-xs text-gray-400 italic">Increases entity influence and unlocks more circles.</div>
+                    </div>
+                </div>
+
+                <!-- Support the Developer -->
+                <div class="mt-6 bg-void-950 rounded-lg p-4 border border-eldritch-800">
+                    <h3 class="text-lg font-medium mb-3 text-eldritch-300">Support the Developer</h3>
+                    <div class="space-y-2">
+                        <a href="https://ko-fi.com/cygryu" target="_blank" rel="noopener noreferrer" class="block w-full py-2 bg-blue-700 hover:bg-blue-600 text-white text-center rounded-md transition-colors">
+                            Ko-Fi
+                        </a>
+                        <a href="https://www.paypal.com/paypalme/sofiansu?country.x=ID&locale.x=en_US" target="_blank" rel="noopener noreferrer" class="block w-full py-2 bg-blue-800 hover:bg-blue-700 text-white text-center rounded-md transition-colors">
+                            PayPal
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle Column: Circles of Influence and Minions -->
+            <div class="md:col-span-2">
+                <div class="bg-void-950 rounded-lg p-4 border border-eldritch-800 eldritch-glow h-full">
+                    <h2 class="text-xl font-semibold mb-4 text-eldritch-300">Circles of Influence</h2>
+                    
+                    <!-- Game Log Filters -->
+                    <div class="game-log-filters">
+                        <button class="log-filter active" data-filter="all">All</button>
+                        <button class="log-filter" data-filter="important">Important</button>
+                        <button class="log-filter" data-filter="minions">Minions</button>
+                        <button class="log-filter" data-filter="resources">Resources</button>
+                        <button class="log-filter" data-filter="madness">Madness</button>
+                    </div>
+                    
+                    <!-- Game Log -->
+                    <div id="game-log" class="bg-black bg-opacity-50 rounded-lg p-3 mb-4 max-h-32 overflow-y-auto text-sm text-gray-400">
+                        <div>Welcome to Eldritch Ascension. Your journey into the abyss begins...</div>
+                    </div>
+                    
+                    <div id="circles-container" class="space-y-6">
+                        <!-- Circles are dynamically generated here -->
+                    </div>
+                    
+                    <!-- Summon Minion Button -->
+                    <div class="mt-6 text-center">
+                        <button id="summon-minion-btn" class="px-4 py-2 bg-eldritch-700 hover:bg-eldritch-600 text-white rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            Summon Minion (10 EE)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Upgrades and Transformations -->
+            <div class="md:col-span-1">
+                <!-- Conversion Section -->
+                <div class="bg-void-950 rounded-lg p-4 border border-eldritch-800 eldritch-glow mb-6">
+                    <h2 class="text-xl font-semibold mb-3 text-eldritch-300">Conversions</h2>
+                    <div class="mb-4">
+                        <div class="text-sm text-gray-300 mb-2">Convert EE to Abyssal Shards</div>
+                        <div class="flex space-x-2">
+                            <button id="convert-ee-as-btn" class="flex-1 py-2 bg-eldritch-800 hover:bg-eldritch-700 rounded-md text-white text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                                Convert 100 EE to 1 AS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Upgrades Section -->
+                <div id="madness-section" class="bg-void-950 rounded-lg p-4 border border-eldritch-800 eldritch-glow madness-container mb-6 madness-locked">
+                    <h2 class="text-xl font-semibold mb-3 text-madness-100 madness-text-flicker">Madness Upgrades</h2>
+                    <div id="madness-container" class="space-y-3">
+                        <div class="text-center text-gray-400 italic text-sm">
+                            Madness upgrades will be unlocked when your Entity reaches influence level 5.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Settings Section -->
+                <div class="bg-void-950 rounded-lg p-4 border border-eldritch-800 eldritch-glow">
+                    <h2 class="text-xl font-semibold mb-3 text-eldritch-300">Settings</h2>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="show-tooltips" checked class="mr-2 h-4 w-4 accent-eldritch-400">
+                            <label for="show-tooltips" class="text-gray-300 text-sm">Show Tooltips</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="autosave" checked class="mr-2 h-4 w-4 accent-eldritch-400">
+                            <label for="autosave" class="text-gray-300 text-sm">Autosave (every 60s)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-gray-500 text-sm">
+            <p>Developed by CygRyu</p>
+            <p class="text-xs mt-1">Eldritch Ascension © 2023 - All Rights Reserved</p>
+        </footer>
+    </div>
+    
+    <!-- Import Modal -->
+    <div id="import-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 modal">
+        <div class="bg-void-950 rounded-lg p-6 border border-eldritch-800 max-w-md w-full">
+            <h3 class="text-xl font-semibold mb-4 text-eldritch-300">Import Save</h3>
+            <textarea id="import-text" class="w-full h-32 bg-black bg-opacity-50 border border-eldritch-800 rounded-md p-2 text-white mb-4 text-sm" placeholder="Paste your save code here..."></textarea>
+            <div class="flex justify-end space-x-3">
+                <button id="import-cancel" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition-colors">Cancel</button>
+                <button id="import-confirm" class="px-4 py-2 bg-eldritch-700 hover:bg-eldritch-600 text-white rounded-md transition-colors">Import</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Export Modal -->
+    <div id="export-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 modal">
+        <div class="bg-void-950 rounded-lg p-6 border border-eldritch-800 max-w-md w-full">
+            <h3 class="text-xl font-semibold mb-4 text-eldritch-300">Export Save</h3>
+            <p class="text-sm text-gray-400 mb-2">Copy the text below to save your game:</p>
+            <textarea id="export-text" class="w-full h-32 bg-black bg-opacity-50 border border-eldritch-800 rounded-md p-2 text-white mb-4 text-sm" readonly></textarea>
+            <div class="flex justify-end space-x-3">
+                <button id="copy-export" class="px-4 py-2 bg-eldritch-800 hover:bg-eldritch-700 text-white rounded-md transition-colors">Copy to Clipboard</button>
+                <button id="export-close" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition-colors">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Minion Details Modal -->
+    <div id="minion-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 modal">
+        <div class="bg-void-950 rounded-lg p-6 border border-eldritch-800 max-w-lg w-full">
+            <h3 id="minion-modal-title" class="text-xl font-semibold mb-2 text-eldritch-300">Minion Details</h3>
+            <p id="minion-modal-description" class="text-gray-400 text-sm italic mb-4">A grotesque servant of the void.</p>
+            
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <div class="mb-2">
+                        <span class="text-gray-400 text-sm">Power:</span>
+                        <span id="minion-modal-power" class="text-white ml-1">1</span>
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-gray-400 text-sm">EE Production:</span>
+                        <span id="minion-modal-production" class="text-eldritch-200 ml-1">0.1/s</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-2">
+                        <span class="text-gray-400 text-sm">Circle:</span>
+                        <span id="minion-modal-circle" class="text-white ml-1">1</span>
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-gray-400 text-sm">Familiars:</span>
+                        <span id="minion-modal-familiars" class="text-purple-300 ml-1">0/0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upgrade Options -->
+            <div class="mb-4">
+                <h4 class="text-lg font-medium mb-2 text-eldritch-300">Enhancements</h4>
+                <div class="space-y-2">
+                    <button id="minion-modal-enhance-power" class="w-full py-2 px-4 bg-eldritch-800 hover:bg-eldritch-700 rounded-md text-white text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        Enhance Power (5 AS)
+                    </button>
+                    <button id="minion-modal-summon-familiar" class="w-full py-2 px-4 bg-eldritch-800 hover:bg-eldritch-700 rounded-md text-white text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        Summon Familiar (20 AS)
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Transformation Section -->
+            <div id="minion-modal-transformation" class="mb-4 hidden">
+                <h4 class="text-lg font-medium mb-2 text-eldritch-300">Transformation</h4>
+                <p class="text-gray-400 text-sm mb-2">This minion can undergo a transformation into a Greater Minion!</p>
+                <div class="grid grid-cols-2 gap-2">
+                    <button id="transform-harvester" class="py-2 px-3 bg-toxic-500 hover:bg-green-900 rounded-md text-white text-xs transition-colors">
+                        Harvester Form<br><span class="text-xs opacity-75">+200% EE Production</span>
+                    </button>
+                    <button id="transform-collector" class="py-2 px-3 bg-blood-500 hover:bg-red-900 rounded-md text-white text-xs transition-colors">
+                        Collector Form<br><span class="text-xs opacity-75">+100% AS Generation</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Current Familiars -->
+            <div id="minion-modal-familiar-list" class="mb-4 hidden">
+                <h4 class="text-lg font-medium mb-2 text-eldritch-300">Current Familiars</h4>
+                <div id="familiar-container" class="space-y-2 max-h-32 overflow-y-auto familiar-container">
+                    <!-- Familiars are listed here -->
+                </div>
+            </div>
+            
+            <div class="flex justify-end">
+                <button id="minion-modal-close" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-md transition-colors">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Autosave Notification -->
+    <div id="autosave-notification" class="autosave-notification">
+        <div class="flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Game saved</span>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        const GAME_VERSION = '0.2.0';
+        let gameState = {
+            version: GAME_VERSION,
+            resources: {
+                ee: 10, // Eldritch Essence
+                as: 0,  // Abyssal Shards
+                mp: 0   // Madness Points
+            },
+            entity: {
+                name: "Dormant Entity",
+                description: "A small, pulsating mass of otherworldly matter.",
+                influence: 1,
+                circles: 3
+            },
+            circles: [],
+            minions: [],
+            familiars: [],
+            madnessUpgrades: [],
+            settings: {
+                showTooltips: true,
+                autosave: true
+            },
+            statistics: {
+                totalEEGained: 10,
+                totalASGained: 0,
+                totalMPGained: 0,
+                totalMinions: 0,
+                totalFamiliars: 0,
+                transformations: 0,
+                gameStarted: Date.now()
+            },
+            messages: [],
+            madnessUnlocked: false
+        };
+        
+        // Constants
+        const MINION_BASE_COST = 10; // EE
+        const MINION_COST_SCALING = 1.15; // Cost multiplier per minion
+        const EE_TO_AS_RATIO = 100; // How much EE to convert to 1 AS
+        const ENTITY_ENHANCE_COST = 10; // AS
+        const ENTITY_ENHANCE_SCALING = 1.5; // Cost multiplier for entity enhancement
+        const AUTOSAVE_INTERVAL = 60000; // 60 seconds
+        const FAMILIAR_COST = 20; // AS
+        const MINION_POWER_COST = 5; // AS
+        const MADNESS_UNLOCK_THRESHOLD = 5; // Entity influence level to unlock madness
+        const TRANSFORMATION_POWER_THRESHOLD = 10; // Minion power level to enable transformation
+        const MADNESS_GENERATION_CHANCE = 0.001; // 0.1% chance per minion power level (significantly reduced)
+        const MINION_CLICK_EE = 1; // EE gained from clicking a minion
+        
+        // UI Elements
+        const elements = {
+            ee: document.getElementById('ee-display'),
+            as: document.getElementById('as-display'),
+            mp: document.getElementById('mp-display'),
+            eePerSecond: document.getElementById('ee-per-second'),
+            entityInfluence: document.getElementById('entity-influence'),
+            entityCircles: document.getElementById('entity-circles'),
+            entityName: document.getElementById('entity-name'),
+            entityDescription: document.getElementById('entity-description'),
+            circlesContainer: document.getElementById('circles-container'),
+            gameLog: document.getElementById('game-log'),
+            summonMinionBtn: document.getElementById('summon-minion-btn'),
+            enhanceEntityBtn: document.getElementById('enhance-entity-btn'),
+            convertEeAsBtn: document.getElementById('convert-ee-as-btn'),
+            madnessContainer: document.getElementById('madness-container'),
+            madnessSection: document.getElementById('madness-section'),
+            showTooltips: document.getElementById('show-tooltips'),
+            autosave: document.getElementById('autosave'),
+            saveBtn: document.getElementById('save-btn'),
+            exportBtn: document.getElementById('export-btn'),
+            importBtn: document.getElementById('import-btn'),
+            resetBtn: document.getElementById('reset-btn'),
+            exportModal: document.getElementById('export-modal'),
+            exportText: document.getElementById('export-text'),
+            exportClose: document.getElementById('export-close'),
+            copyExport: document.getElementById('copy-export'),
+            importModal: document.getElementById('import-modal'),
+            importText: document.getElementById('import-text'),
+            importConfirm: document.getElementById('import-confirm'),
+            importCancel: document.getElementById('import-cancel'),
+            minionModal: document.getElementById('minion-modal'),
+            minionModalTitle: document.getElementById('minion-modal-title'),
+            minionModalDescription: document.getElementById('minion-modal-description'),
+            minionModalPower: document.getElementById('minion-modal-power'),
+            minionModalProduction: document.getElementById('minion-modal-production'),
+            minionModalCircle: document.getElementById('minion-modal-circle'),
+            minionModalFamiliars: document.getElementById('minion-modal-familiars'),
+            minionModalEnhancePower: document.getElementById('minion-modal-enhance-power'),
+            minionModalSummonFamiliar: document.getElementById('minion-modal-summon-familiar'),
+            minionModalTransformation: document.getElementById('minion-modal-transformation'),
+            minionModalFamiliarList: document.getElementById('minion-modal-familiar-list'),
+            familiarContainer: document.getElementById('familiar-container'),
+            minionModalClose: document.getElementById('minion-modal-close'),
+            transformHarvester: document.getElementById('transform-harvester'),
+            transformCollector: document.getElementById('transform-collector'),
+            eeTooltip: document.getElementById('ee-tooltip'),
+            asTooltip: document.getElementById('as-tooltip'),
+            mpTooltip: document.getElementById('mp-tooltip'),
+            minionCost: document.getElementById('minion-cost'),
+            entityCost: document.getElementById('entity-cost'),
+            autosaveNotification: document.getElementById('autosave-notification'),
+            logFilters: document.querySelectorAll('.log-filter')
+        };
+
+        // Initialize Circles of Influence
+        function initializeCircles() {
+            gameState.circles = [];
+            for (let i = 0; i < gameState.entity.circles; i++) {
+                gameState.circles.push({
+                    index: i,
+                    name: getCircleName(i),
+                    description: getCircleDescription(i),
+                    speedMultiplier: getCircleSpeedMultiplier(i),
+                    yieldMultiplier: getCircleYieldMultiplier(i),
+                    specialEffect: getCircleSpecialEffect(i),
+                    minions: []
+                });
+            }
+            renderCircles();
+        }
+        
+        // Helper functions for circle properties
+        function getCircleName(index) {
+            const names = [
+                "Inner Sanctum",
+                "Crawling Depths",
+                "Whispering Periphery",
+                "Echoing Void",
+                "Abyssal Expanse",
+                "Outer Reaches",
+                "Farthest Darkness"
+            ];
+            return index < names.length ? names[index] : `Circle ${index + 1}`;
+        }
+        
+        function getCircleDescription(index) {
+            const descriptions = [
+                "The closest circle to your entity, where minions produce essence rapidly.",
+                "A region of distorted space influenced by your entity's presence.",
+                "The boundary where reality begins to fray at the entity's influence.",
+                "A vast expanse where time flows differently than in normal space.",
+                "A region where cosmic laws begin to break down entirely.",
+                "The boundary between existence and the unknowable void.",
+                "The farthest reach of your entity's influence, touching realms beyond comprehension."
+            ];
+            return index < descriptions.length ? descriptions[index] : `A circle of influence ${index + 1} steps from your entity.`;
+        }
+        
+        function getCircleSpeedMultiplier(index) {
+            // Closer circles produce faster (inner circle is 1.0)
+            return Math.max(0.1, 1.0 - (index * 0.15));
+        }
+        
+        function getCircleYieldMultiplier(index) {
+            // Farther circles produce more per cycle (multiplier increases with distance)
+            return 1.0 + (index * 0.5);
+        }
+        
+        function getCircleSpecialEffect(index) {
+            const effects = [
+                "Minions in this circle have a 10% chance to generate bonus EE each tick.",
+                "Minions in this circle gain power slightly faster.",
+                "Minions in this circle have a 5% chance to generate Madness Points if Madness is unlocked.",
+                "Minions in this circle can attract wandering familiars.",
+                "Minions in this circle generate small amounts of Abyssal Shards over time.",
+                "Minions in this circle have enhanced transformation capabilities.",
+                "Minions in this circle can glimpse beyond the void, gaining unpredictable benefits."
+            ];
+            return index < effects.length ? effects[index] : "No special effect.";
+        }
+        
+        // Apply circle special effects
+        function applyCircleSpecialEffects(deltaSeconds) {
+            gameState.circles.forEach((circle, circleIndex) => {
+                circle.minions.forEach(minionId => {
+                    const minion = getMinionById(minionId);
+                    if (!minion) return;
+                    
+                    // Apply special effects based on circle
+                    switch(circleIndex) {
+                        case 0: // Inner Sanctum: 10% chance for bonus EE
+                            if (Math.random() < 0.1 * deltaSeconds) {
+                                const bonus = minion.production * 2;
+                                gameState.resources.ee += bonus;
+                                gameState.statistics.totalEEGained += bonus;
+                            }
+                            break;
+                        case 1: // Crawling Depths: Passive power gain
+                            if (Math.random() < 0.02 * deltaSeconds) { // 2% chance
+                                minion.power += 0.1;
+                                minion.baseProduction = calculateMinionProduction(minion.power);
+                                minion.production = minion.baseProduction;
+                            }
+                            break;
+                        case 2: // Whispering Periphery: Chance for Madness Points
+                            if (gameState.madnessUnlocked && Math.random() < 0.05 * deltaSeconds) { // 5% chance
+                                gameState.resources.mp += 1;
+                                gameState.statistics.totalMPGained += 1;
+                                
+                                // Only occasionally add to log
+                                if (Math.random() < 0.2) {
+                                    addToGameLog(`The Whispering Periphery grants 1 Madness Point.`, false, "madness");
+                                }
+                            }
+                            break;
+                        case 3: // Echoing Void: Chance to find a familiar
+                            if (Math.random() < 0.01 * deltaSeconds) { // 1% chance
+                                if (minion.familiarIds.length < minion.maxFamiliars) {
+                                    const newFamiliar = {
+                                        id: generateFamiliarId(),
+                                        name: generateFamiliarName(),
+                                        minionId: minionId,
+                                        power: 1,
+                                        production: 0.05
+                                    };
+                                    
+                                    gameState.familiars.push(newFamiliar);
+                                    minion.familiarIds.push(newFamiliar.id);
+                                    gameState.statistics.totalFamiliars++;
+                                    
+                                    addToGameLog(`${minion.name} in the Echoing Void has attracted a ${newFamiliar.name}!`, false, "minions");
+                                }
+                            }
+                            break;
+                        case 4: // Abyssal Expanse: Generate small amounts of AS
+                            if (Math.random() < 0.03 * deltaSeconds) { // 3% chance
+                                gameState.resources.as += 1;
+                                gameState.statistics.totalASGained += 1;
+                                
+                                // Only occasionally add to log
+                                if (Math.random() < 0.2) {
+                                    addToGameLog(`The Abyssal Expanse yields 1 Abyssal Shard.`, false, "resources");
+                                }
+                            }
+                            break;
+                        case 5: // Outer Reaches: Enhanced transformation
+                            if (minion.transformed && Math.random() < 0.05 * deltaSeconds) { // 5% chance
+                                if (minion.transformationType === 'Harvester') {
+                                    const bonus = minion.production * 0.5;
+                                    gameState.resources.ee += bonus;
+                                    gameState.statistics.totalEEGained += bonus;
+                                } else if (minion.transformationType === 'Collector') {
+                                    if (Math.random() < 0.3) {
+                                        gameState.resources.as += 1;
+                                        gameState.statistics.totalASGained += 1;
+                                    }
+                                }
+                            }
+                            break;
+                        case 6: // Farthest Darkness: Unpredictable benefits
+                            if (Math.random() < 0.02 * deltaSeconds) { // 2% chance
+                                const randomEffect = Math.random();
+                                if (randomEffect < 0.3) {
+                                    // Bonus EE
+                                    const bonus = minion.production * 5;
+                                    gameState.resources.ee += bonus;
+                                    gameState.statistics.totalEEGained += bonus;
+                                    addToGameLog(`${minion.name} in the Farthest Darkness channels a surge of Eldritch Essence!`, false, "resources");
+                                } else if (randomEffect < 0.5) {
+                                    // Bonus AS
+                                    gameState.resources.as += 2;
+                                    gameState.statistics.totalASGained += 2;
+                                    addToGameLog(`${minion.name} in the Farthest Darkness discovers 2 Abyssal Shards!`, false, "resources");
+                                } else if (randomEffect < 0.7 && gameState.madnessUnlocked) {
+                                    // Bonus MP
+                                    gameState.resources.mp += 3;
+                                    gameState.statistics.totalMPGained += 3;
+                                    addToGameLog(`${minion.name} in the Farthest Darkness receives visions worth 3 Madness Points!`, false, "madness");
+                                } else {
+                                    // Temporary power boost
+                                    minion.power += 0.5;
+                                    minion.baseProduction = calculateMinionProduction(minion.power);
+                                    minion.production = minion.baseProduction;
+                                    addToGameLog(`${minion.name} in the Farthest Darkness grows stronger from unknown cosmic forces!`, false, "minions");
+                                }
+                            }
+                            break;
+                    }
+                });
+            });
+        }
+        
+        // Render circle UI
+        function renderCircles() {
+            elements.circlesContainer.innerHTML = '';
+            
+            gameState.circles.forEach((circle, index) => {
+                const circleElement = document.createElement('div');
+                circleElement.className = 'circle-of-influence bg-black bg-opacity-50 rounded-lg p-4 border border-eldritch-900 mb-4';
+                
+                let minionElements = '';
+                if (circle.minions.length === 0) {
+                    minionElements = '<div class="text-center text-gray-500 italic text-sm mt-2">No minions in this circle</div>';
+                } else {
+                    minionElements = '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">';
+                    circle.minions.forEach(minionId => {
+                        const minion = getMinionById(minionId);
+                        if (minion) {
+                            let transformClass = '';
+                            let transformIcon = '';
+                            
+                            if (minion.transformed) {
+                                transformClass = minion.transformationType === 'Harvester' ? 'harvester' : 'collector';
+                                transformIcon = `<div class="transform-icon ${transformClass}"></div>`;
+                            }
+                            
+                            minionElements += `
+                                <div class="minion bg-void-950 rounded p-2 border border-eldritch-800 cursor-pointer transformed ${transformClass}" data-minion-id="${minion.id}">
+                                    <div class="font-medium text-eldritch-300">${minion.name}</div>
+                                    <div class="flex justify-between text-xs">
+                                        <span>Power: ${minion.power.toFixed(1)}</span>
+                                        <span>${(minion.production * getEEMultiplierForMinion(minion)).toFixed(2)} EE/s</span>
+                                    </div>
+                                    ${transformIcon}
+                                </div>`;
+                        }
+                    });
+                    minionElements += '</div>';
+                }
+                
+                circleElement.innerHTML = `
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-lg font-medium text-eldritch-300">${circle.name}</h3>
+                        <span class="text-xs text-gray-400">Circle ${index + 1}</span>
+                    </div>
+                    <div class="text-xs text-gray-400 italic mb-2">${circle.description}</div>
+                    <div class="text-xs text-eldritch-200 italic mb-3">${circle.specialEffect}</div>
+                    <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                        <div class="bg-black bg-opacity-40 rounded p-2">
+                            <div class="text-gray-400">Speed Multiplier</div>
+                            <div class="text-eldritch-200">${circle.speedMultiplier.toFixed(2)}x</div>
+                        </div>
+                        <div class="bg-black bg-opacity-40 rounded p-2">
+                            <div class="text-gray-400">Yield Multiplier</div>
+                            <div class="text-eldritch-200">${circle.yieldMultiplier.toFixed(2)}x</div>
+                        </div>
+                    </div>
+                    ${minionElements}
+                `;
+                
+                elements.circlesContainer.appendChild(circleElement);
+            });
+            
+            // Add click event to minions
+            document.querySelectorAll('.minion').forEach(minionEl => {
+                minionEl.addEventListener('click', (e) => {
+                    const minionId = e.currentTarget.dataset.minionId;
+                    
+                    // Generate a small amount of EE when clicking a minion
+                    const minion = getMinionById(minionId);
+                    if (minion) {
+                        const eeGained = MINION_CLICK_EE * minion.power;
+                        gameState.resources.ee += eeGained;
+                        gameState.statistics.totalEEGained += eeGained;
+                        addToGameLog(`You prod ${minion.name}, generating ${eeGained.toFixed(1)} Eldritch Essence.`);
+                        updateUI();
+                    }
+                    
+                    // Show the minion modal
+                    showMinionModal(minionId);
+                });
+            });
+        }
+        
+        // Helper function to get minion by ID
+        function getMinionById(id) {
+            return gameState.minions.find(minion => minion.id === id);
+        }
+        
+        // Generate a unique minion ID
+        function generateMinionId() {
+            return 'minion_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+        }
+        
+        // Generate a unique familiar ID
+        function generateFamiliarId() {
+            return 'familiar_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+        }
+        
+        // Generate random minion name
+        function generateMinionName() {
+            const prefixes = ["Abyssal", "Writhing", "Gibbering", "Tentacled", "Phantasmal", "Eldritch", 
+                            "Cyclopean", "Blasphemous", "Non-Euclidean", "Amorphous", "Unspeakable", "Squamous"];
+            const types = ["Horror", "Shambler", "Spawn", "Abomination", "Entity", "Monstrosity", 
+                        "Watcher", "Devourer", "Seeper", "Harbinger", "Crawler", "Nightgaunt"];
+            
+            return `${prefixes[Math.floor(Math.random() * prefixes.length)]} ${types[Math.floor(Math.random() * types.length)]}`;
+        }
+        
+        // Generate dynamic minion description based on power and transformation
+        function generateMinionDescription(minion) {
+            if (!minion) {
+                const baseDescriptions = [
+                    "A writhing mass of tentacles and eyes that pulses with unnatural life.",
+                    "A formless entity that seems to exist in multiple dimensions simultaneously.",
+                    "A horrifying amalgamation of flesh and shadow that defies comprehension.",
+                    "A creature of impossible geometry that hurts the mind to observe directly.",
+                    "A shapeshifting abomination whose true form cannot be perceived by mortal eyes.",
+                    "A being composed of constantly shifting limbs and orifices.",
+                    "A pulsating horror whose mere presence warps the fabric of reality.",
+                    "A creature of pure void that somehow maintains physical form in our dimension."
+                ];
+                return baseDescriptions[Math.floor(Math.random() * baseDescriptions.length)];
+            }
+            
+            // Generate description based on minion properties
+            if (minion.transformed) {
+                if (minion.transformationType === 'Harvester') {
+                    return "A transformed entity specialized in extracting essence from reality itself. Its body constantly ripples with eldritch energy.";
+                } else if (minion.transformationType === 'Collector') {
+                    return "A specialized form that harvests crystallized fragments of the void. Its appendages have evolved into intricate collection structures.";
+                }
+            }
+            
+            if (minion.power >= 25) {
+                return "An impossibly vast consciousness housed in a form that defies spatial logic. Its mere presence causes localized reality distortions.";
+            } else if (minion.power >= 15) {
+                return "A powerful entity that has grown multiple appendages and sensory organs. It emits an aura of dread that affects all nearby beings.";
+            } else if (minion.power >= 8) {
+                return "A substantial presence in the void, now capable of manipulating surrounding space. Its form shifts between states of matter.";
+            } else if (minion.power >= 3) {
+                return "A growing horror that has developed additional features. Its flesh sometimes phases through solid matter.";
+            }
+            
+            return "A grotesque servant of the void, still developing its potential.";
+        }
+        
+        // Generate random familiar name
+        function generateFamiliarName() {
+            const prefixes = ["Tiny", "Lesser", "Minor", "Small", "Diminutive", "Whispering", 
+                            "Skittering", "Floating", "Lurking", "Crawling", "Ethereal", "Twisted"];
+            const types = ["Spawn", "Imp", "Helper", "Observer", "Mote", "Fragment", 
+                        "Particle", "Essence", "Wisp", "Shard", "Tendril", "Vestige"];
+            
+            return `${prefixes[Math.floor(Math.random() * prefixes.length)]} ${types[Math.floor(Math.random() * types.length)]}`;
+        }
+        
+        // Get minion cost
+        function getMinionCost() {
+            return Math.floor(MINION_BASE_COST * Math.pow(MINION_COST_SCALING, gameState.minions.length));
+        }
+        
+        // Get entity enhancement cost
+        function getEntityEnhancementCost() {
+            return Math.floor(ENTITY_ENHANCE_COST * Math.pow(ENTITY_ENHANCE_SCALING, gameState.entity.influence - 1));
+        }
+        
+        // Find the first available circle for a new minion
+        function findAvailableCircle() {
+            // First check if there are any empty circles
+            for (let i = 0; i < gameState.circles.length; i++) {
+                if (gameState.circles[i].minions.length === 0) {
+                    return i;
+                }
+            }
+            
+            // If all circles have at least one minion, find the one with the fewest minions
+            let minMinionCount = Infinity;
+            let circleIndex = 0;
+            
+            for (let i = 0; i < gameState.circles.length; i++) {
+                if (gameState.circles[i].minions.length < minMinionCount) {
+                    minMinionCount = gameState.circles[i].minions.length;
+                    circleIndex = i;
+                }
+            }
+            
+            return circleIndex;
+        }
+        
+        // Get EE production multiplier for a minion
+        function getEEMultiplierForMinion(minion) {
+            const circle = gameState.circles[minion.circleIndex];
+            const baseMultiplier = circle.speedMultiplier * circle.yieldMultiplier;
+            const entityMultiplier = 1 + (gameState.entity.influence * 0.1);
+            
+            let transformMultiplier = 1;
+            if (minion.transformed && minion.transformationType === 'Harvester') {
+                transformMultiplier = 3; // +200% EE production
+            }
+            
+            // Apply madness upgrades effects
+            let madnessMultiplier = 1;
+            if (gameState.madnessUpgrades.some(upgrade => upgrade.id === 'madness_whispers' && upgrade.purchased)) {
+                madnessMultiplier = 1.5; // +50%
+            }
+            
+            return baseMultiplier * entityMultiplier * transformMultiplier * madnessMultiplier;
+        }
+        
+        // Calculate minion production based on power (exponential scaling)
+        function calculateMinionProduction(power) {
+            // Exponential formula: 0.1 + (power^1.5 * 0.05)
+            return 0.1 + (Math.pow(power, 1.5) * 0.05);
+        }
+        
+        // Create a new minion
+        function createMinion() {
+            const cost = getMinionCost();
+            
+            if (gameState.resources.ee < cost) {
+                addToGameLog("Not enough Eldritch Essence to summon a minion.");
+                return false;
+            }
+            
+            const circleIndex = findAvailableCircle();
+            const newMinion = {
+                id: generateMinionId(),
+                name: generateMinionName(),
+                description: generateMinionDescription(),
+                power: 1,
+                baseProduction: 0.1, // Base EE production per second
+                production: 0.1,     // Current EE production per second
+                circleIndex: circleIndex,
+                familiarIds: [],
+                maxFamiliars: 0,
+                transformed: false,
+                transformationType: null
+            };
+            
+            gameState.resources.ee -= cost;
+            gameState.minions.push(newMinion);
+            gameState.circles[circleIndex].minions.push(newMinion.id);
+            gameState.statistics.totalMinions++;
+            
+            addToGameLog(`Summoned ${newMinion.name} in the ${gameState.circles[circleIndex].name}.`, false, "minions");
+            updateUI();
+            return true;
+        }
+        
+        // Create a new familiar for a minion
+        function createFamiliar(minionId) {
+            const minion = getMinionById(minionId);
+            if (!minion) return false;
+            
+            if (gameState.resources.as < FAMILIAR_COST) {
+                addToGameLog("Not enough Abyssal Shards to summon a familiar.");
+                return false;
+            }
+            
+            if (minion.familiarIds.length >= minion.maxFamiliars) {
+                addToGameLog(`${minion.name} cannot support any more familiars.`);
+                return false;
+            }
+            
+            const newFamiliar = {
+                id: generateFamiliarId(),
+                name: generateFamiliarName(),
+                minionId: minionId,
+                power: 1,
+                production: 0.05 // Base EE production per second
+            };
+            
+            gameState.resources.as -= FAMILIAR_COST;
+            gameState.familiars.push(newFamiliar);
+            minion.familiarIds.push(newFamiliar.id);
+            gameState.statistics.totalFamiliars++;
+            
+            addToGameLog(`A ${newFamiliar.name} appears and begins orbiting ${minion.name}.`, false, "minions");
+            updateUI();
+            return true;
+        }
+        
+        // Enhance a minion's power
+        function enhanceMinionPower(minionId) {
+            const minion = getMinionById(minionId);
+            if (!minion) return false;
+            
+            if (gameState.resources.as < MINION_POWER_COST) {
+                addToGameLog("Not enough Abyssal Shards to enhance minion power.");
+                return false;
+            }
+            
+            gameState.resources.as -= MINION_POWER_COST;
+            minion.power += 1;
+            minion.baseProduction = calculateMinionProduction(minion.power);
+            minion.production = minion.baseProduction;
+            
+            // Update minion description based on new power
+            minion.description = generateMinionDescription(minion);
+            
+            // Update max familiars
+            minion.maxFamiliars = Math.floor(minion.power / 3);
+            
+            addToGameLog(`Enhanced ${minion.name}'s power to ${minion.power.toFixed(1)}.`, false, "minions");
+            updateUI();
+            return true;
+        }
+        
+        // Transform a minion into a Greater Minion
+        function transformMinion(minionId, type) {
+            const minion = getMinionById(minionId);
+            if (!minion) return false;
+            
+            if (minion.power < TRANSFORMATION_POWER_THRESHOLD) {
+                addToGameLog(`${minion.name} needs more power before it can transform.`);
+                return false;
+            }
+            
+            if (minion.transformed) {
+                addToGameLog(`${minion.name} has already been transformed.`);
+                return false;
+            }
+            
+            minion.transformed = true;
+            minion.transformationType = type;
+            
+            if (type === 'Harvester') {
+                minion.name = `Greater ${minion.name}`;
+                minion.description = generateMinionDescription(minion);
+                addToGameLog(`${minion.name} has transformed into a Harvester form, greatly increasing its EE production!`, false, "minions");
+            } else if (type === 'Collector') {
+                minion.name = `Collector ${minion.name}`;
+                minion.description = generateMinionDescription(minion);
+                addToGameLog(`${minion.name} has transformed into a Collector form, enabling it to generate Abyssal Shards!`, false, "minions");
+            }
+            
+            gameState.statistics.transformations++;
+            updateUI();
+            return true;
+        }
+        
+        // Enhance the Entity
+        function enhanceEntity() {
+            const cost = getEntityEnhancementCost();
+            
+            if (gameState.resources.as < cost) {
+                addToGameLog("Not enough Abyssal Shards to enhance your Entity.");
+                return false;
+            }
+            
+            gameState.resources.as -= cost;
+            gameState.entity.influence += 1;
+            
+            // Add a new circle if needed
+            if (gameState.entity.influence % 2 === 1) {
+                gameState.entity.circles += 1;
+                const newCircleIndex = gameState.circles.length;
+                gameState.circles.push({
+                    index: newCircleIndex,
+                    name: getCircleName(newCircleIndex),
+                    description: getCircleDescription(newCircleIndex),
+                    speedMultiplier: getCircleSpeedMultiplier(newCircleIndex),
+                    yieldMultiplier: getCircleYieldMultiplier(newCircleIndex),
+                    specialEffect: getCircleSpecialEffect(newCircleIndex),
+                    minions: []
+                });
+                addToGameLog(`Your Entity's influence has expanded, revealing a new circle: ${getCircleName(newCircleIndex)}.`, true);
+            }
+            
+            // Update entity appearance based on influence level
+            updateEntityAppearance();
+            
+            // Check if we should unlock Madness
+            if (gameState.entity.influence >= MADNESS_UNLOCK_THRESHOLD && !gameState.madnessUnlocked) {
+                unlockMadness();
+            }
+            
+            addToGameLog(`Your Entity's influence has increased to level ${gameState.entity.influence}.`, true);
+            updateUI();
+            return true;
+        }
+        
+        // Update entity appearance based on influence level
+        function updateEntityAppearance() {
+            if (gameState.entity.influence >= 20) {
+                gameState.entity.name = "Cosmic Overlord";
+                gameState.entity.description = "A being of unimaginable power, bending reality to its will. Stars dim in its presence, and space itself warps to accommodate its incomprehensible form.";
+            } else if (gameState.entity.influence >= 15) {
+                gameState.entity.name = "Eldritch Titan";
+                gameState.entity.description = "A colossal entity that dominates the cosmic void, now capable of manipulating the fabric of reality. Lesser beings perceive only fragments of its true form.";
+            } else if (gameState.entity.influence >= 10) {
+                gameState.entity.name = "Cosmic Horror";
+                gameState.entity.description = "A vast, incomprehensible entity that warps reality around it. Stars dim in its presence.";
+            } else if (gameState.entity.influence >= 7) {
+                gameState.entity.name = "Greater Entity";
+                gameState.entity.description = "A massive, pulsating being that radiates eldritch energy. Its mere presence causes minor reality distortions.";
+            } else if (gameState.entity.influence >= 4) {
+                gameState.entity.name = "Awakened Entity";
+                gameState.entity.description = "The entity has grown considerably, now displaying multiple appendages and sensory organs of unknown purpose.";
+            } else if (gameState.entity.influence >= 2) {
+                gameState.entity.name = "Stirring Entity";
+                gameState.entity.description = "The entity shows signs of growth and awareness, occasionally emitting faint whispers.";
+            }
+            
+            elements.entityName.textContent = gameState.entity.name;
+            elements.entityDescription.textContent = gameState.entity.description;
+        }
+        
+        // Convert EE to AS
+        function convertEEToAS() {
+            if (gameState.resources.ee < EE_TO_AS_RATIO) {
+                addToGameLog(`Not enough Eldritch Essence. Need ${EE_TO_AS_RATIO} EE to convert to 1 AS.`);
+                return false;
+            }
+            
+            gameState.resources.ee -= EE_TO_AS_RATIO;
+            gameState.resources.as += 1;
+            gameState.statistics.totalASGained += 1;
+            
+            addToGameLog(`Converted ${EE_TO_AS_RATIO} Eldritch Essence to 1 Abyssal Shard.`, false, "resources");
+            updateUI();
+            return true;
+        }
+        
+        // Unlock madness upgrades
+        function unlockMadness() {
+            gameState.madnessUnlocked = true;
+            
+            // Initialize madness upgrades
+            gameState.madnessUpgrades = [
+                {
+                    id: 'madness_whispers',
+                    name: 'Maddening Whispers',
+                    description: 'The Entity whispers secrets of the cosmos, increasing all Minion production by 50% but gradually driving you mad.',
+                    cost: 25, // MP cost
+                    purchased: false,
+                    effect: () => {
+                        // Implementation will be in the game loop
+                        addToGameLog("Maddening whispers fill your mind, revealing cosmic secrets at a terrible cost.", true, "madness");
+                    }
+                },
+                {
+                    id: 'madness_visions',
+                    name: 'Warped Visions',
+                    description: 'Reality occasionally bends, doubling EE production for brief periods but causing some EE to disappear.',
+                    cost: 50,
+                    purchased: false,
+                    effect: () => {
+                        addToGameLog("You begin to see things as they truly are, beyond the veil of sanity.", true, "madness");
+                    }
+                },
+                {
+                    id: 'madness_familiar',
+                    name: 'Unbound Familiars',
+                    description: 'Familiars occasionally break free from their Minions, but produce more EE in their liberated state.',
+                    cost: 75,
+                    purchased: false,
+                    effect: () => {
+                        addToGameLog("Your Familiars show signs of independence, their behavior becoming increasingly erratic.", true, "madness");
+                    }
+                },
+                {
+                    id: 'madness_merge',
+                    name: 'Aberrant Merging',
+                    description: 'Allows minions to be merged together, sacrificing them to create more powerful hybrid forms.',
+                    cost: 100,
+                    purchased: false,
+                    effect: () => {
+                        addToGameLog("You perceive the possibility of merging distinct forms into something greater...", true, "madness");
+                    }
+                },
+                {
+                    id: 'madness_realm',
+                    name: 'Nightmare Realm',
+                    description: 'Opens a gateway to a realm of pure madness, generating massive amounts of MP but with unpredictable effects.',
+                    cost: 200,
+                    purchased: false,
+                    effect: () => {
+                        addToGameLog("A tear in reality forms, connecting your consciousness to a realm of pure madness.", true, "madness");
+                    }
+                }
+            ];
+            
+            // Update MP tooltip
+            elements.mpTooltip.innerHTML = "Used to purchase Madness Upgrades. Increases passively as your minions channel cosmic energy.";
+            
+            // Update the madness section visuals
+            elements.madnessSection.classList.remove('madness-locked');
+            
+            addToGameLog("As your Entity reaches influence level 5, you begin to experience strange thoughts and visions. Madness Upgrades have been unlocked!", true, "madness");
+            renderMadnessUpgrades();
+        }
+        
+        // Render madness upgrades
+        function renderMadnessUpgrades() {
+            if (!gameState.madnessUnlocked) {
+                elements.madnessContainer.innerHTML = `
+                    <div class="text-center text-gray-400 italic text-sm">
+                        Madness upgrades will be unlocked when your Entity reaches influence level 5.
+                    </div>`;
+                return;
+            }
+            
+            elements.madnessContainer.innerHTML = '';
+            
+            gameState.madnessUpgrades.forEach(upgrade => {
+                const upgradeElement = document.createElement('div');
+                upgradeElement.className = 'madness-upgrade bg-black bg-opacity-50 rounded-lg p-3 border border-madness-900 mb-3';
+                
+                if (upgrade.purchased) {
+                    upgradeElement.innerHTML = `
+                        <div class="text-madness-100 font-medium">${upgrade.name}</div>
+                        <div class="text-gray-400 text-xs">${upgrade.description}</div>
+                        <div class="mt-1 text-green-500 text-xs">Purchased</div>
+                    `;
+                } else {
+                    upgradeElement.innerHTML = `
+                        <div class="text-madness-100 font-medium">${upgrade.name}</div>
+                        <div class="text-gray-400 text-xs">${upgrade.description}</div>
+                        <button class="mt-2 w-full py-1 bg-madness-900 hover:bg-madness-500 rounded-md text-white text-xs transition-colors madness-upgrade-btn" data-upgrade-id="${upgrade.id}">
+                            Purchase (${upgrade.cost} MP)
+                        </button>
+                    `;
+                }
+                
+                elements.madnessContainer.appendChild(upgradeElement);
+            });
+            
+            // Add event listeners to madness upgrade buttons
+            document.querySelectorAll('.madness-upgrade-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const upgradeId = e.currentTarget.dataset.upgradeId;
+                    purchaseMadnessUpgrade(upgradeId);
+                });
+            });
+        }
+        
+        // Purchase a madness upgrade
+        function purchaseMadnessUpgrade(upgradeId) {
+            const upgrade = gameState.madnessUpgrades.find(u => u.id === upgradeId);
+            if (!upgrade) return false;
+            
+            if (upgrade.purchased) {
+                addToGameLog(`${upgrade.name} has already been purchased.`);
+                return false;
+            }
+            
+            if (gameState.resources.mp < upgrade.cost) {
+                addToGameLog(`Not enough Madness Points to purchase ${upgrade.name}.`);
+                return false;
+            }
+            
+            gameState.resources.mp -= upgrade.cost;
+            upgrade.purchased = true;
+            upgrade.effect();
+            
+            renderMadnessUpgrades();
+            updateUI();
+            return true;
+        }
+        
+        // Add message to game log
+        function addToGameLog(message, important = false, category = "general") {
+            const logElement = document.createElement('div');
+            logElement.className = important ? 'text-eldritch-300' : '';
+            logElement.textContent = message;
+            logElement.dataset.category = category;
+            
+            // Special styling for madness messages
+            if (category === "madness") {
+                logElement.className = 'text-madness-100';
+            }
+            
+            elements.gameLog.appendChild(logElement);
+            elements.gameLog.scrollTop = elements.gameLog.scrollHeight;
+            
+            // Also store messages for export
+            gameState.messages.push({
+                text: message,
+                timestamp: Date.now(),
+                important: important,
+                category: category
+            });
+        }
+        
+        // Filter game log
+        function filterGameLog(filter) {
+            const logEntries = elements.gameLog.querySelectorAll('div');
+            
+            logEntries.forEach(entry => {
+                const category = entry.dataset.category || "general";
+                const isImportant = entry.classList.contains('text-eldritch-300') || entry.classList.contains('text-madness-100');
+                
+                if (filter === 'all') {
+                    entry.style.display = 'block';
+                } else if (filter === 'important' && isImportant) {
+                    entry.style.display = 'block';
+                } else if (filter === filter && category === filter) {
+                    entry.style.display = 'block';
+                } else {
+                    entry.style.display = 'none';
+                }
+            });
+        }
+        
+        // Update UI elements
+        function updateUI() {
+            // Update resource displays
+            elements.ee.textContent = Math.floor(gameState.resources.ee);
+            elements.as.textContent = Math.floor(gameState.resources.as);
+            elements.mp.textContent = Math.floor(gameState.resources.mp);
+            
+            // Update entity information
+            elements.entityInfluence.textContent = gameState.entity.influence;
+            elements.entityCircles.textContent = gameState.entity.circles;
+            
+            // Update dynamic tooltips
+            const minionCost = getMinionCost();
+            const entityCost = getEntityEnhancementCost();
+            elements.minionCost.textContent = minionCost;
+            elements.entityCost.textContent = entityCost;
+            
+            // Update buttons
+            elements.summonMinionBtn.textContent = `Summon Minion (${minionCost} EE)`;
+            elements.summonMinionBtn.disabled = gameState.resources.ee < minionCost;
+            
+            elements.enhanceEntityBtn.textContent = `Enhance Influence (${entityCost} AS)`;
+            elements.enhanceEntityBtn.disabled = gameState.resources.as < entityCost;
+            
+            elements.convertEeAsBtn.disabled = gameState.resources.ee < EE_TO_AS_RATIO;
+            
+            // Re-render circles
+            renderCircles();
+        }
+        
+        // Show minion modal
+        function showMinionModal(minionId) {
+            const minion = getMinionById(minionId);
+            if (!minion) return;
+            
+            const currentSelectedMinionId = elements.minionModal.dataset.minionId;
+            elements.minionModal.dataset.minionId = minionId;
+            
+            elements.minionModalTitle.textContent = minion.name;
+            elements.minionModalDescription.textContent = minion.description;
+            elements.minionModalPower.textContent = minion.power.toFixed(1);
+            elements.minionModalProduction.textContent = `${(minion.production * getEEMultiplierForMinion(minion)).toFixed(2)}/s`;
+            elements.minionModalCircle.textContent = minion.circleIndex + 1;
+            elements.minionModalFamiliars.textContent = `${minion.familiarIds.length}/${minion.maxFamiliars}`;
+            
+            // Update power enhancement button
+            elements.minionModalEnhancePower.textContent = `Enhance Power (${MINION_POWER_COST} AS)`;
+            elements.minionModalEnhancePower.disabled = gameState.resources.as < MINION_POWER_COST;
+            
+            // Update familiar button
+            elements.minionModalSummonFamiliar.textContent = `Summon Familiar (${FAMILIAR_COST} AS)`;
+            elements.minionModalSummonFamiliar.disabled = gameState.resources.as < FAMILIAR_COST || 
+                minion.familiarIds.length >= minion.maxFamiliars;
+            
+            // Show/hide transformation section
+            if (minion.power >= TRANSFORMATION_POWER_THRESHOLD && !minion.transformed) {
+                elements.minionModalTransformation.classList.remove('hidden');
+            } else {
+                elements.minionModalTransformation.classList.add('hidden');
+            }
+            
+            // Show/hide familiar list
+            if (minion.familiarIds.length > 0) {
+                elements.minionModalFamiliarList.classList.remove('hidden');
+                renderFamiliars(minion.familiarIds);
+            } else {
+                elements.minionModalFamiliarList.classList.add('hidden');
+            }
+            
+            elements.minionModal.classList.remove('hidden');
+        }
+        
+        // Render familiar list
+        function renderFamiliars(familiarIds) {
+            elements.familiarContainer.innerHTML = '';
+            
+            familiarIds.forEach(id => {
+                const familiar = gameState.familiars.find(f => f.id === id);
+                if (familiar) {
+                    const familiarElement = document.createElement('div');
+                    familiarElement.className = 'bg-black bg-opacity-50 rounded p-2 border border-eldritch-900';
+                    familiarElement.innerHTML = `
+                        <div class="flex justify-between">
+                            <span class="text-eldritch-200">${familiar.name}</span>
+                            <span class="text-gray-400">${familiar.production.toFixed(2)} EE/s</span>
+                        </div>
+                    `;
+                    elements.familiarContainer.appendChild(familiarElement);
+                }
+            });
+        }
+        
+        // Calculate and update EE per second
+        function updateEEPerSecond() {
+            let totalEEPerSecond = 0;
+            
+            // Calculate EE from minions
+            gameState.minions.forEach(minion => {
+                totalEEPerSecond += minion.production * getEEMultiplierForMinion(minion);
+                
+                // Add EE from familiars
+                minion.familiarIds.forEach(familiarId => {
+                    const familiar = gameState.familiars.find(f => f.id === familiarId);
+                    if (familiar) {
+                        totalEEPerSecond += familiar.production;
+                    }
+                });
+            });
+            
+            // Apply madness upgrades effects for Warped Visions
+            if (gameState.madnessUpgrades.some(upgrade => upgrade.id === 'madness_visions' && upgrade.purchased)) {
+                // 5% chance to double production temporarily
+                if (Math.random() < 0.05) {
+                    totalEEPerSecond *= 2;
+                }
+                // 2% chance to lose some EE
+                if (Math.random() < 0.02) {
+                    gameState.resources.ee *= 0.95; // Lose 5% of current EE
+                }
+            }
+            
+            elements.eePerSecond.textContent = totalEEPerSecond.toFixed(2);
+            return totalEEPerSecond;
+        }
+        
+        // Show autosave notification
+        function showAutosaveNotification() {
+            elements.autosaveNotification.classList.add('show');
+            setTimeout(() => {
+                elements.autosaveNotification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Game loop
+        let lastUpdate = Date.now();
+        let lastAutosave = Date.now();
+        
+        function gameLoop() {
+            const now = Date.now();
+            const delta = now - lastUpdate;
+            lastUpdate = now;
+            
+            // Convert delta to seconds
+            const deltaSeconds = delta / 1000;
+            
+            // Calculate EE per second for this tick
+            const eePerSecond = updateEEPerSecond();
+            
+            // Add EE based on production rate
+            gameState.resources.ee += eePerSecond * deltaSeconds;
+            gameState.statistics.totalEEGained += eePerSecond * deltaSeconds;
+            
+            // Apply special circle effects
+            applyCircleSpecialEffects(deltaSeconds);
+            
+            // Passive Madness Point generation - only if madness is unlocked
+            if (gameState.madnessUnlocked) {
+                gameState.minions.forEach(minion => {
+                    if (Math.random() < MADNESS_GENERATION_CHANCE * minion.power * deltaSeconds) {
+                        gameState.resources.mp += 1;
+                        gameState.statistics.totalMPGained += 1;
+                        
+                        // Only add to game log occasionally to avoid spam
+                        if (Math.random() < 0.1) {
+                            addToGameLog(`${minion.name} whispers secrets of the void, generating 1 Madness Point.`, false, "madness");
+                        }
+                    }
+                });
+            }
+            
+            // Collector transformation effect: Generate AS over time
+            gameState.minions.forEach(minion => {
+                if (minion.transformed && minion.transformationType === 'Collector') {
+                    if (Math.random() < 0.1 * deltaSeconds) { // 10% chance per second
+                        gameState.resources.as += 1;
+                        gameState.statistics.totalASGained += 1;
+                        
+                        // Only add to game log occasionally to avoid spam
+                        if (Math.random() < 0.3) {
+                            addToGameLog(`${minion.name} has collected 1 Abyssal Shard from the void.`, false, "resources");
+                        }
+                    }
+                }
+            });
+            
+            // Check for autosave
+            if (gameState.settings.autosave && now - lastAutosave > AUTOSAVE_INTERVAL) {
+                saveGame(true);
+                lastAutosave = now;
+            }
+            
+            // Update UI
+            updateUI();
+            
+            // Request next frame
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // Save game to localStorage
+        function saveGame(isAutosave = false) {
+            const saveData = JSON.stringify(gameState);
+            localStorage.setItem('eldritch_ascension_save', saveData);
+            
+            if (isAutosave) {
+                showAutosaveNotification();
+            } else {
+                addToGameLog("Game saved.");
+            }
+        }
+        
+        // Load game from localStorage
+        function loadGame() {
+            const saveData = localStorage.getItem('eldritch_ascension_save');
+            if (saveData) {
+                try {
+                    const loadedState = JSON.parse(saveData);
+                    
+                    // Check for version compatibility
+                    if (!loadedState.version || loadedState.version !== GAME_VERSION) {
+                        // Handle version differences here
+                        addToGameLog(`Loaded save from version ${loadedState.version || 'unknown'}. Current version is ${GAME_VERSION}.`, true);
+                    }
+                    
+                    // Merge with default state to ensure all properties exist
+                    gameState = { ...gameState, ...loadedState };
+                    
+                    // Make sure all required arrays exist
+                    gameState.minions = gameState.minions || [];
+                    gameState.familiars = gameState.familiars || [];
+                    gameState.circles = gameState.circles || [];
+                    gameState.madnessUpgrades = gameState.madnessUpgrades || [];
+                    gameState.messages = gameState.messages || [];
+                    
+                    // Update madness section visuals based on unlocked state
+                    if (gameState.madnessUnlocked) {
+                        elements.madnessSection.classList.remove('madness-locked');
+                        elements.mpTooltip.innerHTML = "Used to purchase Madness Upgrades. Increases passively as your minions channel cosmic energy.";
+                    }
+                    
+                    addToGameLog("Game loaded successfully.");
+                    updateEntityAppearance();
+                    initializeCircles();
+                    renderMadnessUpgrades();
+                    updateUI();
+                    return true;
+                } catch (error) {
+                    console.error("Error loading save:", error);
+                    addToGameLog("Error loading saved game data.");
+                    return false;
+                }
+            }
+            return false;
+        }
+        
+        // Reset game
+        function resetGame() {
+            if (confirm("Are you sure you want to reset the game? This will erase all progress.")) {
+                localStorage.removeItem('eldritch_ascension_save');
+                location.reload();
+            }
+        }
+        
+        // Export game to Base64 string
+        function exportGame() {
+            try {
+                const saveData = JSON.stringify(gameState);
+                const base64Save = btoa(saveData);
+                elements.exportText.value = base64Save;
+                elements.exportModal.classList.remove('hidden');
+            } catch (error) {
+                console.error("Error exporting save:", error);
+                addToGameLog("Error exporting game data.");
+            }
+        }
+        
+        // Import game from Base64 string
+        function importGame() {
+            elements.importModal.classList.remove('hidden');
+        }
+        
+        // Process imported game data
+        function processImport() {
+            try {
+                const importData = elements.importText.value.trim();
+                if (!importData) {
+                    addToGameLog("No import data provided.");
+                    return false;
+                }
+                
+                const decodedData = atob(importData);
+                const importedState = JSON.parse(decodedData);
+                
+                // Check for version compatibility
+                if (!importedState.version || importedState.version !== GAME_VERSION) {
+                    // Handle version differences here
+                    addToGameLog(`Imported save from version ${importedState.version || 'unknown'}. Current version is ${GAME_VERSION}.`, true);
+                }
+                
+                // Merge with default state to ensure all properties exist
+                gameState = { ...gameState, ...importedState };
+                
+                // Make sure all required arrays exist
+                gameState.minions = gameState.minions || [];
+                gameState.familiars = gameState.familiars || [];
+                gameState.circles = gameState.circles || [];
+                gameState.madnessUpgrades = gameState.madnessUpgrades || [];
+                gameState.messages = gameState.messages || [];
+                
+                // Update madness section visuals based on unlocked state
+                if (gameState.madnessUnlocked) {
+                    elements.madnessSection.classList.remove('madness-locked');
+                    elements.mpTooltip.innerHTML = "Used to purchase Madness Upgrades. Increases passively as your minions channel cosmic energy.";
+                }
+                
+                elements.importModal.classList.add('hidden');
+                addToGameLog("Game imported successfully.");
+                updateEntityAppearance();
+                initializeCircles();
+                renderMadnessUpgrades();
+                updateUI();
+                return true;
+            } catch (error) {
+                console.error("Error importing save:", error);
+                addToGameLog("Error importing game data. Make sure the import data is valid.");
+                return false;
+            }
+        }
+        
+        // Event listeners
+        function setupEventListeners() {
+            // Game buttons
+            elements.summonMinionBtn.addEventListener('click', createMinion);
+            elements.enhanceEntityBtn.addEventListener('click', enhanceEntity);
+            elements.convertEeAsBtn.addEventListener('click', convertEEToAS);
+            
+            // Save/Load buttons
+            elements.saveBtn.addEventListener('click', () => saveGame(false));
+            elements.exportBtn.addEventListener('click', exportGame);
+            elements.importBtn.addEventListener('click', importGame);
+            elements.resetBtn.addEventListener('click', resetGame);
+            
+            // Modal buttons
+            elements.exportClose.addEventListener('click', () => elements.exportModal.classList.add('hidden'));
+            elements.importCancel.addEventListener('click', () => elements.importModal.classList.add('hidden'));
+            elements.importConfirm.addEventListener('click', processImport);
+            elements.minionModalClose.addEventListener('click', () => elements.minionModal.classList.add('hidden'));
+            
+            // Minion modal buttons
+            elements.minionModalEnhancePower.addEventListener('click', () => {
+                const minionId = elements.minionModal.dataset.minionId;
+                if (enhanceMinionPower(minionId)) {
+                    showMinionModal(minionId); // Refresh modal
+                }
+            });
+            
+            elements.minionModalSummonFamiliar.addEventListener('click', () => {
+                const minionId = elements.minionModal.dataset.minionId;
+                if (createFamiliar(minionId)) {
+                    showMinionModal(minionId); // Refresh modal
+                }
+            });
+            
+            elements.transformHarvester.addEventListener('click', () => {
+                const minionId = elements.minionModal.dataset.minionId;
+                if (transformMinion(minionId, 'Harvester')) {
+                    showMinionModal(minionId); // Refresh modal
+                }
+            });
+            
+            elements.transformCollector.addEventListener('click', () => {
+                const minionId = elements.minionModal.dataset.minionId;
+                if (transformMinion(minionId, 'Collector')) {
+                    showMinionModal(minionId); // Refresh modal
+                }
+            });
+            
+            // Copy export code
+            elements.copyExport.addEventListener('click', () => {
+                elements.exportText.select();
+                document.execCommand('copy');
+                addToGameLog("Export data copied to clipboard.");
+            });
+            
+            // Settings
+            elements.showTooltips.addEventListener('change', (e) => {
+                gameState.settings.showTooltips = e.target.checked;
+                document.querySelectorAll('.tooltip-text').forEach(tooltip => {
+                    tooltip.style.display = e.target.checked ? 'block' : 'none';
+                });
+            });
+            
+            elements.autosave.addEventListener('change', (e) => {
+                gameState.settings.autosave = e.target.checked;
+            });
+            
+            // Game log filters
+            elements.logFilters.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    elements.logFilters.forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    const filter = e.target.dataset.filter;
+                    filterGameLog(filter);
+                });
+            });
+            
+            // Apply settings
+            if (!gameState.settings.showTooltips) {
+                document.querySelectorAll('.tooltip-text').forEach(tooltip => {
+                    tooltip.style.display = 'none';
+                });
+                elements.showTooltips.checked = false;
+            }
+            
+            elements.autosave.checked = gameState.settings.autosave;
+        }
+        
+        // Initialize game
+        function initGame() {
+            // Set up dark mode based on user preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+            
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
+            
+            // Try to load saved game
+            if (!loadGame()) {
+                // Initialize circles for new game
+                initializeCircles();
+            }
+            
+            setupEventListeners();
+            updateUI();
+            
+            // Start game loop
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // Start the game
+        window.addEventListener('load', initGame);
+    </script>
+</body>
+</html>
