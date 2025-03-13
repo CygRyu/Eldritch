@@ -774,20 +774,23 @@
 
         // Initialize Circles of Influence
         function initializeCircles() {
-            gameState.circles = [];
-            for (let i = 0; i < gameState.entity.circles; i++) {
-                gameState.circles.push({
-                    index: i,
-                    name: getCircleName(i),
-                    description: getCircleDescription(i),
-                    speedMultiplier: getCircleSpeedMultiplier(i),
-                    yieldMultiplier: getCircleYieldMultiplier(i),
-                    specialEffect: getCircleSpecialEffect(i),
-                    minions: []
-                });
-            }
-            renderCircles();
+    // Only initialize circles if they don't already exist
+    if (gameState.circles.length === 0) {
+        gameState.circles = [];
+        for (let i = 0; i < gameState.entity.circles; i++) {
+            gameState.circles.push({
+                index: i,
+                name: getCircleName(i),
+                description: getCircleDescription(i),
+                speedMultiplier: getCircleSpeedMultiplier(i),
+                yieldMultiplier: getCircleYieldMultiplier(i),
+                specialEffect: getCircleSpecialEffect(i),
+                minions: []
+            });
         }
+    }
+    renderCircles();
+}
         
         // Helper functions for circle properties
         function getCircleName(index) {
@@ -1166,37 +1169,37 @@
         
         // Create a new minion
         function createMinion() {
-            const cost = getMinionCost();
-            
-            if (gameState.resources.ee < cost) {
-                addToGameLog("Not enough Eldritch Essence to summon a minion.");
-                return false;
-            }
-            
-            const circleIndex = findAvailableCircle();
-            const newMinion = {
-                id: generateMinionId(),
-                name: generateMinionName(),
-                description: generateMinionDescription(),
-                power: 1,
-                baseProduction: 0.1, // Base EE production per second
-                production: 0.1,     // Current EE production per second
-                circleIndex: circleIndex,
-                familiarIds: [],
-                maxFamiliars: 0,
-                transformed: false,
-                transformationType: null
-            };
-            
-            gameState.resources.ee -= cost;
-            gameState.minions.push(newMinion);
-            gameState.circles[circleIndex].minions.push(newMinion.id);
-            gameState.statistics.totalMinions++;
-            
-            addToGameLog(`Summoned ${newMinion.name} in the ${gameState.circles[circleIndex].name}.`, false, "minions");
-            updateUI();
-            return true;
-        }
+    const cost = getMinionCost();
+
+    if (gameState.resources.ee < cost) {
+        addToGameLog("Not enough Eldritch Essence to summon a minion.");
+        return false;
+    }
+
+    const circleIndex = findAvailableCircle();
+    const newMinion = {
+        id: generateMinionId(),
+        name: generateMinionName(),
+        description: generateMinionDescription(),
+        power: 1,
+        baseProduction: 0.1,
+        production: 0.1,
+        circleIndex: circleIndex, // Ensure circleIndex is assigned
+        familiarIds: [],
+        maxFamiliars: 0,
+        transformed: false,
+        transformationType: null
+    };
+
+    gameState.resources.ee -= cost;
+    gameState.minions.push(newMinion);
+    gameState.circles[circleIndex].minions.push(newMinion.id); // Assign minion to circle
+    gameState.statistics.totalMinions++;
+
+    addToGameLog(`Summoned ${newMinion.name} in the ${gameState.circles[circleIndex].name}.`, false, "minions");
+    updateUI();
+    return true;
+}
         
         // Create a new familiar for a minion
         function createFamiliar(minionId) {
@@ -1766,47 +1769,58 @@
         
         // Load game from localStorage
         function loadGame() {
-            const saveData = localStorage.getItem('eldritch_ascension_save');
-            if (saveData) {
-                try {
-                    const loadedState = JSON.parse(saveData);
-                    
-                    // Check for version compatibility
-                    if (!loadedState.version || loadedState.version !== GAME_VERSION) {
-                        // Handle version differences here
-                        addToGameLog(`Loaded save from version ${loadedState.version || 'unknown'}. Current version is ${GAME_VERSION}.`, true);
-                    }
-                    
-                    // Merge with default state to ensure all properties exist
-                    gameState = { ...gameState, ...loadedState };
-                    
-                    // Make sure all required arrays exist
-                    gameState.minions = gameState.minions || [];
-                    gameState.familiars = gameState.familiars || [];
-                    gameState.circles = gameState.circles || [];
-                    gameState.madnessUpgrades = gameState.madnessUpgrades || [];
-                    gameState.messages = gameState.messages || [];
-                    
-                    // Update madness section visuals based on unlocked state
-                    if (gameState.madnessUnlocked) {
-                        elements.madnessSection.classList.remove('madness-locked');
-                        elements.mpTooltip.innerHTML = "Used to purchase Madness Upgrades. Increases passively as your minions channel cosmic energy.";
-                    }
-                    
-                    addToGameLog("Game loaded successfully.");
-                    updateEntityAppearance();
-                    initializeCircles();
-                    renderMadnessUpgrades();
-                    updateUI();
-                    return true;
-                } catch (error) {
-                    console.error("Error loading save:", error);
-                    addToGameLog("Error loading saved game data.");
-                    return false;
-                }
+    const saveData = localStorage.getItem('eldritch_ascension_save');
+    if (saveData) {
+        try {
+            const loadedState = JSON.parse(saveData);
+
+            // Check for version compatibility
+            if (!loadedState.version || loadedState.version !== GAME_VERSION) {
+                addToGameLog(`Loaded save from version ${loadedState.version || 'unknown'}. Current version is ${GAME_VERSION}.`, true);
             }
+
+            // Merge with default state to ensure all properties exist
+            gameState = { ...gameState, ...loadedState };
+
+            // Ensure all required arrays exist
+            gameState.minions = gameState.minions || [];
+            gameState.familiars = gameState.familiars || [];
+            gameState.circles = gameState.circles || [];
+            gameState.madnessUpgrades = gameState.madnessUpgrades || [];
+            gameState.messages = gameState.messages || [];
+
+            // Restore minion assignments to circles
+            if (gameState.circles.length > 0) {
+                // Ensure minions are assigned to the correct circles
+                gameState.minions.forEach(minion => {
+                    if (minion.circleIndex !== undefined && gameState.circles[minion.circleIndex]) {
+                        gameState.circles[minion.circleIndex].minions.push(minion.id);
+                    }
+                });
+            } else {
+                // If circles are not initialized, initialize them
+                initializeCircles();
+            }
+
+            // Update madness section visuals based on unlocked state
+            if (gameState.madnessUnlocked) {
+                elements.madnessSection.classList.remove('madness-locked');
+                elements.mpTooltip.innerHTML = "Used to purchase Madness Upgrades. Increases passively as your minions channel cosmic energy.";
+            }
+
+            addToGameLog("Game loaded successfully.");
+            updateEntityAppearance();
+            renderMadnessUpgrades();
+            updateUI();
+            return true;
+        } catch (error) {
+            console.error("Error loading save:", error);
+            addToGameLog("Error loading saved game data.");
             return false;
         }
+    }
+    return false;
+}
         
         // Reset game
         function resetGame() {
